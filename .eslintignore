@@ -1,0 +1,10 @@
+node_modules/
+target/
+.next/
+build/
+dist/
+packages/api/generated/
+tailwind.config.js
+
+crates/*/tests/**
+vite.config.ts
