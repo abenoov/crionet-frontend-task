@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_COUNTRIES } from '../../graphql/queries';
-import QueryPanel from './QueryPanel';
 
-interface Language {
-  name: string;
-}
+import { GET_ALL_COUNTRIES } from '../../graphql/queries';
+
+import QueryPanel from './QueryPanel';
 
 interface Country {
   name: string;
@@ -14,7 +12,7 @@ interface Country {
   continent?: {
     name: string;
   };
-  languages: Language[];
+  languages: { name: string }[];
 }
 
 interface CountriesData {
@@ -23,33 +21,37 @@ interface CountriesData {
 
 const CountryListPage: React.FC = () => {
   const [searchedText, setSearchedText] = useState<string>('');
+  const [selectedContinent, setSelectedContinent] = useState<string>('');
+
   const { loading, error, data } = useQuery<CountriesData>(GET_ALL_COUNTRIES);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const filteredCountries = data?.countries.filter((country) => {
+    const lowerCaseKeyword = searchedText.toLowerCase();
 
-  const filteredCountries = data?.countries
-    ? data.countries.filter((country) => {
-        const lowerCaseKeyword = searchedText.toLowerCase();
+    const searchedItem =
+      country.name.toLowerCase().includes(lowerCaseKeyword) ||
+      country.capital?.toLowerCase().includes(lowerCaseKeyword) ||
+      country.languages.some((lang) => lang.name.toLowerCase().includes(lowerCaseKeyword));
 
-        return (
-          country.name.toLowerCase().includes(lowerCaseKeyword) ||
-          country.capital?.toLowerCase().includes(lowerCaseKeyword) ||
-          country.languages.some((lang) => lang.name.toLowerCase().includes(lowerCaseKeyword))
-        );
-      })
-    : [];
+    const filteredContinent =
+      selectedContinent === '' || country.continent?.name === selectedContinent;
+
+    return searchedItem && filteredContinent;
+  });
 
   return (
     <>
-      <QueryPanel searchedText={searchedText} setSearchedText={setSearchedText} />
+      <QueryPanel
+        searchedText={searchedText}
+        setSearchedText={setSearchedText}
+        selectedContinent={selectedContinent}
+        setSelectedContinent={setSelectedContinent}
+      />
       <div className="grid grid-cols-3 gap-4">
-        {filteredCountries.map((country) => (
+        {filteredCountries?.map((country) => (
           <div
             key={country.name}
             className="w-full rounded-lg border-[#262626b3] border-solid border flex flex-col bg-[#161616] p-4"

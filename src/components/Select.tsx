@@ -5,24 +5,30 @@ const selectClasses = {
     'bg-[#161616] text-sm font-extralight text-white py-1 px-3 rounded-md focus:outline-none focus:ring-1 focus:ring-white appearance-none',
 };
 
+interface Option {
+  value: string;
+  label: string;
+}
+
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   variant: 'medium' | 'small';
-  placeholder?: string;
+  options: Option[];
   className?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
   variant = 'medium',
   className = '',
-  placeholder,
-  children,
+  options,
   ...rest
 }) => {
   return (
     <select className={`${selectClasses[variant]} ${className}`} {...rest}>
-      <option>opt1</option>
-      <option>opt2</option>
-      <option>opt3</option>
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
     </select>
   );
 };
