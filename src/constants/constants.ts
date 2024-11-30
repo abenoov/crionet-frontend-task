@@ -8,3 +8,8 @@ export const CONTINENTS = [
   { value: 'Oceania', label: 'Oceania' },
   { value: 'South America', label: 'South America' },
 ];
+
+export const SORT_OPTIONS = [
+  { value: 'asc', label: 'A → Z' },
+  { value: 'desc', label: 'Z → A' },
+];

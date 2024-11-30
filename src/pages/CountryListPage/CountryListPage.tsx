@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-
 import { GET_ALL_COUNTRIES } from '../../graphql/queries';
-
 import QueryPanel from './QueryPanel';
 
 interface Country {
@@ -22,6 +20,7 @@ interface CountriesData {
 const CountryListPage: React.FC = () => {
   const [searchedText, setSearchedText] = useState<string>('');
   const [selectedContinent, setSelectedContinent] = useState<string>('');
+  const [selectedSortOrder, setSelectedSortOrder] = useState<string>('asc');
 
   const { loading, error, data } = useQuery<CountriesData>(GET_ALL_COUNTRIES);
 
@@ -42,6 +41,13 @@ const CountryListPage: React.FC = () => {
     return searchedItem && filteredContinent;
   });
 
+  const sortedCountries = filteredCountries?.sort((a, b) => {
+    if (selectedSortOrder === 'asc') {
+      return a.name.localeCompare(b.name);
+    }
+    return b.name.localeCompare(a.name);
+  });
+
   return (
     <>
       <QueryPanel
@@ -49,9 +55,11 @@ const CountryListPage: React.FC = () => {
         setSearchedText={setSearchedText}
         selectedContinent={selectedContinent}
         setSelectedContinent={setSelectedContinent}
+        selectedSortOrder={selectedSortOrder}
+        setSelectedSortOrder={setSelectedSortOrder}
       />
       <div className="grid grid-cols-3 gap-4">
-        {filteredCountries?.map((country) => (
+        {sortedCountries?.map((country) => (
           <div
             key={country.name}
             className="w-full rounded-lg border-[#262626b3] border-solid border flex flex-col bg-[#161616] p-4"
