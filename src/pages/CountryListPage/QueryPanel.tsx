@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Search from '../../components/Search';
 import Select from '../../components/Select';
+
 import { CONTINENTS, SORT_OPTIONS } from '../../constants/constants';
 
 interface QueryPanelProps {
@@ -34,14 +36,13 @@ const QueryPanel: React.FC<QueryPanelProps> = ({
         options={CONTINENTS}
         value={selectedContinent}
         onChange={(e) => setSelectedContinent(e.target.value)}
-        className="w-32"
+        className="w-40"
       />
       <Select
         variant="medium"
         options={SORT_OPTIONS}
         value={selectedSortOrder}
         onChange={(e) => setSelectedSortOrder(e.target.value)}
-        className="w-32"
       />
     </div>
   );

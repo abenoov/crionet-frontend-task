@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
+
 import { GET_ALL_COUNTRIES } from '../../graphql/queries';
+
 import QueryPanel from './QueryPanel';
 
 interface Country {
@@ -65,7 +67,7 @@ const CountryListPage: React.FC = () => {
             className="w-full rounded-lg border-[#262626b3] border-solid border flex flex-col bg-[#161616] p-4"
           >
             <span className="text-[#fff]">
-              {country.capital}, {country.name} {country.emoji}
+              {country.name}, {country.capital} {country.emoji}
             </span>
             <span className="text-[#a3a3a3] font-extralight mb-2">{country.continent?.name}</span>
             <span className="text-[#a3a3a3] font-extralight">

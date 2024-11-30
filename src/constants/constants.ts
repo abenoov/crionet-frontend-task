@@ -1,5 +1,5 @@
 export const CONTINENTS = [
-  { value: '', label: 'All Countries' },
+  { value: '', label: 'All Continents' },
   { value: 'Africa', label: 'Africa' },
   { value: 'Antarctica', label: 'Antarctica' },
   { value: 'Asia', label: 'Asia' },
