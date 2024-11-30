@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
-const CountryListPage = lazy(() => import('./pages/CountryListPage'));
-const CountryDetailsPage = lazy(() => import('./pages/CountryDetailsPage'));
+const CountryListPage = lazy(() => import('./pages/CountryListPage/CountryListPage'));
+const CountryDetailsPage = lazy(() => import('./pages/CountryDetailsPage/CountryDetailsPage'));
 
 const coreRoutes = [
   {
