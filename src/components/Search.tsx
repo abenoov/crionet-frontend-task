@@ -5,13 +5,14 @@ const inputClasses = {
     'bg-[#161616] text-sm font-extralight text-white py-1 px-3 rounded-md focus:outline-none focus:ring-1 focus:ring-white',
 };
 
-interface SearchProps extends React.HTMLProps<HTMLInputElement> {
+interface SearchProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant?: 'medium' | 'small';
   placeholder?: string;
   className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Search = ({ variant = 'medium', className = '', ...rest }: SearchProps) => {
+const Search: React.FC<SearchProps> = ({ variant = 'medium', className = '', ...rest }) => {
   return <input className={`${inputClasses[variant]} ${className}`} {...rest} />;
 };
 

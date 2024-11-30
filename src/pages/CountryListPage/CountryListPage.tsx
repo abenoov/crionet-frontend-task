@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_COUNTRIES } from '../../graphql/queries';
 import QueryPanel from './QueryPanel';
@@ -22,25 +22,34 @@ interface CountriesData {
 }
 
 const CountryListPage: React.FC = () => {
-  const {
-    loading: loadingCountries,
-    error: errorCountries,
-    data: countriesData,
-  } = useQuery<CountriesData>(GET_ALL_COUNTRIES);
+  const [searchedText, setSearchedText] = useState<string>('');
+  const { loading, error, data } = useQuery<CountriesData>(GET_ALL_COUNTRIES);
 
-  if (loadingCountries) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (errorCountries) {
-    return <div>Error: {errorCountries.message}</div>;
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
+
+  const filteredCountries = data?.countries
+    ? data.countries.filter((country) => {
+        const lowerCaseKeyword = searchedText.toLowerCase();
+
+        return (
+          country.name.toLowerCase().includes(lowerCaseKeyword) ||
+          country.capital?.toLowerCase().includes(lowerCaseKeyword) ||
+          country.languages.some((lang) => lang.name.toLowerCase().includes(lowerCaseKeyword))
+        );
+      })
+    : [];
 
   return (
     <>
-      <QueryPanel />
+      <QueryPanel searchedText={searchedText} setSearchedText={setSearchedText} />
       <div className="grid grid-cols-3 gap-4">
-        {countriesData?.countries.map((country) => (
+        {filteredCountries.map((country) => (
           <div
             key={country.name}
             className="w-full rounded-lg border-[#262626b3] border-solid border flex flex-col bg-[#161616] p-4"
