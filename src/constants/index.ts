@@ -1,3 +1,8 @@
+export enum SORT_OPTIONS_ENUM {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
 export const CONTINENTS = [
   { value: '', label: 'All Continents' },
   { value: 'Africa', label: 'Africa' },
@@ -10,6 +15,6 @@ export const CONTINENTS = [
 ];
 
 export const SORT_OPTIONS = [
-  { value: 'asc', label: 'A → Z' },
-  { value: 'desc', label: 'Z → A' },
+  { value: SORT_OPTIONS_ENUM.ASC, label: 'A → Z' },
+  { value: SORT_OPTIONS_ENUM.DESC, label: 'Z → A' },
 ];

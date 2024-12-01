@@ -12,7 +12,7 @@ request.interceptors.request.use(
   (config) => {
     config.params = {
       ...config.params,
-      appid: '5458f7fb3e170582a573cf98d46629f7', // personal api key
+      appid: import.meta.env.VITE_APP_ID,
       units: 'metric',
     };
     return config;
