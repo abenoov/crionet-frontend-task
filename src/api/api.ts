@@ -1,16 +1,22 @@
-import request from 'axios';
+import axios from 'axios';
 
-// request.defaults.baseURL = import.meta.env.BASE_URL;
-request.defaults.headers.common['Content-Type'] = 'application/json';
-request.defaults.headers.common.Accept = 'application/json';
+const request = axios.create({
+  baseURL: 'https://api.openweathermap.org/data/2.5/',
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 request.interceptors.request.use(
-  (config) => config,
-  (error) => Promise.reject(error)
-);
-
-request.interceptors.response.use(
-  (response) => response.data,
+  (config) => {
+    config.params = {
+      ...config.params,
+      appid: '5458f7fb3e170582a573cf98d46629f7', // personal api key
+      units: 'metric',
+    };
+    return config;
+  },
   (error) => Promise.reject(error)
 );
 

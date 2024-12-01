@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
 import { GET_ALL_COUNTRIES } from '../../graphql/queries';
 
@@ -9,6 +10,7 @@ interface Country {
   name: string;
   capital: string;
   emoji: string;
+  code: string;
   continent?: {
     name: string;
   };
@@ -66,10 +68,11 @@ const CountryListPage: React.FC = () => {
             key={country.name}
             className="w-full rounded-lg border-[#262626b3] border-solid border flex flex-col bg-[#161616] p-4"
           >
-            <span className="text-[#fff]">
-              {country.name}, {country.capital} {country.emoji}
-            </span>
+            <Link to={`/country/${country.code}`} className="text-[#fff] hover:underline">
+              {country.name} ({country.code}) {country.emoji}
+            </Link>
             <span className="text-[#a3a3a3] font-extralight mb-2">{country.continent?.name}</span>
+            <span className="text-[#a3a3a3] font-extralight">Capital: {country.capital}</span>
             <span className="text-[#a3a3a3] font-extralight">
               Languages: {country.languages.map((lang) => lang.name).join(', ')}
             </span>

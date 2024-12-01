@@ -10,7 +10,7 @@ const coreRoutes = [
     component: CountryListPage,
   },
   {
-    path: '/country-details',
+    path: '/country/:code',
     title: 'CountryDetailsPage',
     component: CountryDetailsPage,
   },
