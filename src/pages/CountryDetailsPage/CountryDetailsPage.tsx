@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { GET_COUNTRY_DETAILS } from '../../graphql/queries';
 
@@ -16,6 +16,7 @@ const CountryDetailsPage: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const { code } = useParams<{ code: string }>();
+  const navigate = useNavigate();
 
   const { loading, error, data } = useQuery(GET_COUNTRY_DETAILS, {
     variables: { code },
@@ -39,16 +40,17 @@ const CountryDetailsPage: React.FC = () => {
   if (loading) return <div>Loading country details...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const languages: string = data.country.languages
-    .map((lang: { name: string }) => lang.name)
-    .join(', ');
-
   return (
     <div className="p-6 bg-[#161616] text-white rounded-lg">
+      <button className="mb-2" onClick={() => navigate('/')}>
+        {'< Back'}
+      </button>
       <h1 className="text-2xl font-bold mb-4">{data.country.name}</h1>
       <p>Capital: {data.country.capital}</p>
       <p>Continent: {data.country.continent.name}</p>
-      <p>Languages:{languages}</p>
+      <p>
+        Languages: {data.country.languages.map((lang: { name: string }) => lang.name).join(', ')}
+      </p>
       <p>Currencies: {data.country.currencies.join(', ')}</p>
 
       {weatherData ? (
