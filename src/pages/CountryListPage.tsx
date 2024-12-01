@@ -16,15 +16,21 @@ interface CountriesData {
 const CountryListPage: React.FC = () => {
   const [searchedText, setSearchedText] = useState<string>('');
   const [selectedContinent, setSelectedContinent] = useState<string>('');
-  const [selectedSortOrder, setSelectedSortOrder] = useState<SORT_OPTIONS_ENUM>(SORT_OPTIONS_ENUM.ASC);
+  const [selectedSortOrder, setSelectedSortOrder] = useState<SORT_OPTIONS_ENUM>(
+    SORT_OPTIONS_ENUM.ASC
+  );
 
   const { loading, error, data } = useQuery<CountriesData>(GET_ALL_COUNTRIES);
 
-  const listData = useMemo(() => getFilteredAndSortedCountryList({
-    countryList: data?.countries || [],
-    filter: { searchedText, selectedContinent },
-    sort: selectedSortOrder,
-  }), [data?.countries, searchedText, selectedContinent, selectedSortOrder]);
+  const listData = useMemo(
+    () =>
+      getFilteredAndSortedCountryList({
+        countryList: data?.countries || [],
+        filter: { searchedText, selectedContinent },
+        sort: selectedSortOrder,
+      }),
+    [data?.countries, searchedText, selectedContinent, selectedSortOrder]
+  );
 
   if (error) return <div>Error: {error.message}</div>;
 
@@ -38,13 +44,8 @@ const CountryListPage: React.FC = () => {
         selectedSortOrder={selectedSortOrder}
         setSelectedSortOrder={setSelectedSortOrder}
       />
-      <div className="grid grid-cols-3 gap-4">
-        {listData?.map((country) => (
-          <CountryCard
-            key={country.code}
-            country={country}
-          />
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
+        {listData?.map((country) => <CountryCard key={country.code} country={country} />)}
       </div>
     </Page>
   );

@@ -22,10 +22,10 @@ const QueryPanel: React.FC<Props> = ({
   setSelectedContinent,
   setSelectedSortOrder,
 }) => (
-  <div className="mb-6 flex items-center gap-2">
+  <div className="mb-6 flex flex-col sm:flex-row sm:items-center gap-2">
     <SearchInput
       placeholder="Search by country name, language, capital"
-      className="sm:w-full"
+      className="w-full"
       value={searchedText}
       onChange={(e) => setSearchedText(e.target.value)}
     />
@@ -33,12 +33,13 @@ const QueryPanel: React.FC<Props> = ({
       options={CONTINENTS}
       value={selectedContinent}
       onChange={(e) => setSelectedContinent(e.target.value)}
-      className="w-40"
+      className="w-full sm:w-40"
     />
     <Select
       options={SORT_OPTIONS}
       value={selectedSortOrder}
       onChange={(e) => setSelectedSortOrder(e.target.value as SORT_OPTIONS_ENUM)}
+      className="w-full sm:w-auto"
     />
   </div>
 );
