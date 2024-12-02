@@ -64,7 +64,7 @@ running at: http://localhost:3002
 
 **Responsiveness:**
 
-- Tailwind CSS: Used for responsive design.
+- **Tailwind CSS**: Used for responsive design.
 
 ## Challenges Faced
 
