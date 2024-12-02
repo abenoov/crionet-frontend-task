@@ -42,12 +42,12 @@ running at: http://localhost:3002
 **Component-Based Approach:**
 
 - The application is divided into small, isolated components such as `SearchInput`, `Select`, `QueryPanel`, `CountryCard`.
-- Components are developed following the KISS (Keep It Simple, Stupid) and DRY (Don't Repeat Yourself) principles.
+- Components are developed following the **KISS** (Keep It Simple, Stupid) and **DRY** (Don't Repeat Yourself) principles.
 
 **State Management:**
 
-- Local State (`useState`): Used for managing client-side data such as search queries, selected continent, and sort order.
-- Apollo Client: Utilized for working with server-side data, simplifying interactions with the GraphQL API and providing caching.
+- **Local State** (`useState`): Used for managing client-side data such as search queries, selected continent, and sort order.
+- **Apollo Client**: Utilized for working with server-side data, simplifying interactions with the GraphQL API and providing caching.
 
 **Routing:**
 
@@ -57,10 +57,10 @@ running at: http://localhost:3002
 
 **GraphQL API:**
 
-- Optimized Queries: GraphQL queries are designed to minimize the retrieval of unnecessary data:
+- **Optimized Queries**: GraphQL queries are designed to minimize the retrieval of unnecessary data:
    - `GET_ALL_COUNTRIES` — for obtaining the list of countries.
    - `GET_COUNTRY_DETAILS` — for detailed information about a specific country.
-- Caching: Apollo Client enables caching of results, improving the application's performance.
+- **Caching**: Apollo Client enables caching of results, improving the application's performance.
 
 **Responsiveness:**
 
