@@ -66,3 +66,13 @@ running at: http://localhost:3002
 
 - Tailwind CSS: Used for responsive design.
 
+## Challenges Faced
+
+**Handling API Limitations**
+
+- **Challenge**: The GraphQL API I was working with provided predefined structures and didn't support custom filters like sorting or searching on the server side.
+- **Solution**: I implemented client-side filtering and sorting using utility functions. The search feature now supports queries by name, language, and capital city, while sorting is managed dynamically based on user input.
+- **Next Steps**: In the future, we can implement `paginated queries`, `infinite scrolling`, or `debouncing` the search input to reduce the number of requests sent during rapid user input.
+
+
+
